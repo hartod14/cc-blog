@@ -1,25 +1,47 @@
-import React from 'react';
+"use client"
+
+import Image from 'next/image';
+import React, { useState, useEffect } from 'react';
 
 export default function Header() {
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                setIsScrolled(true);
+            } else {
+                setIsScrolled(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <header className="bg-white shadow-md">
-            <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-                {/* Logo/Image */}
+        <header
+            className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black shadow-md' : 'bg-transparent'
+                }`}
+        >
+            <div className="container mx-auto px-4 py-1 flex items-center justify-between">
                 <div className="flex items-center">
-                    <img
-                        src="/path-to-your-image/logo.png" 
-                        alt="Logo" 
-                        className="h-10 w-10 object-cover"
+                    <Image
+                        src="/gameblog.png"
+                        width={200}
+                        height={200}
+                        alt="gameblog.logo"
                     />
                 </div>
 
-                {/* Navigation Links */}
                 <nav>
-                    <ul className="flex space-x-6 text-gray-700 font-medium">
-                        <li><a href="#" className="hover:text-blue-500">Home</a></li>
-                        <li><a href="#" className="hover:text-blue-500">Blog Posts</a></li>
-                        <li><a href="#" className="hover:text-blue-500">Categories</a></li>
-                        <li><a href="#" className="hover:text-blue-500">About</a></li>
+                    <ul className="flex space-x-6 text-white font-medium">
+                        <li><a href="#" className="hover:text-orange-500">Home</a></li>
+                        <li><a href="#" className="hover:text-orange-500">Blog Posts</a></li>
+                        <li><a href="#" className="hover:text-orange-500">Categories</a></li>
+                        <li><a href="#" className="hover:text-orange-500">About</a></li>
                     </ul>
                 </nav>
             </div>
