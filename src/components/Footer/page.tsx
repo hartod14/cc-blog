@@ -18,10 +18,10 @@ export default function Footer() {
 
                     <nav className="mb-6 md:mb-0">
                         <ul className="flex space-x-6">
-                            <li><a href="#" className="hover:text-blue-500">Home</a></li>
-                            <li><a href="#" className="hover:text-blue-500">Blog Posts</a></li>
-                            <li><a href="#" className="hover:text-blue-500">Categories</a></li>
-                            <li><a href="#" className="hover:text-blue-500">About</a></li>
+                            <li><a href="#" className="hover:text-orange-500">Home</a></li>
+                            <li><a href="#" className="hover:text-orange-500">Blog Posts</a></li>
+                            <li><a href="#" className="hover:text-orange-500">Categories</a></li>
+                            <li><a href="#" className="hover:text-orange-500">About</a></li>
                         </ul>
                     </nav>
 
