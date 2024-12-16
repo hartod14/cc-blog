@@ -16,7 +16,7 @@ export default function About() {
           <div className="relative z-10 flex flex-col items-center justify-center text-center h-full px-4">
             <h1 className="text-4xl md:text-6xl font-bold mb-4">About the GameBlog</h1>
             <p className="text-lg md:text-xl max-w-2xl">
-              Latest Game News, Updates, and Insights
+              History, Vission & Mission, and Our Teams
             </p>
           </div>
         </div>
