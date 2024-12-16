@@ -1,42 +1,51 @@
-"use client"
+"use client";
 
 import { useState } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Card, CardContent, CardMedia, Chip } from "@mui/material";
+import { formatDistanceToNow } from "date-fns";
 
-const BlogPostsPage = () => {
+export default function Post() {
     // Sample data for posts
     const posts = [
         {
             id: 1,
             title: "Understanding Game Mechanics",
-            excerpt: "A deep dive into how game mechanics shape player experiences.",
-            date: "Dec 15, 2024",
+            excerpt: "A deep dive into how game mechanics shape player experiences.A deep dive into how game mechanics shape player experiences.A deep dive into how game mechanics shape player experiences.A deep dive into how game mechanics shape player experiences.",
+            date: new Date(2024, 11, 15),
             category: "E-Sport",
             slug: "understanding-game-mechanics",
+            image: "/post/banner.jpg",
+            author: "John Doe",
         },
         {
             id: 2,
             title: "Esports Trends in 2024",
             excerpt: "Analyzing the top trends shaping the esports scene.",
-            date: "Dec 10, 2024",
+            date: new Date(2024, 11, 10),
             category: "Console",
             slug: "esports-trends-2024",
+            image: "/gameblog.png",
+            author: "Jane Smith",
         },
         {
             id: 3,
             title: "Top 10 RPGs of All Time",
             excerpt: "Discover the best RPGs that have defined gaming history.",
-            date: "Nov 25, 2024",
+            date: new Date(2024, 10, 25),
             category: "RPG",
             slug: "top-10-rpgs",
+            image: "/newslatter.png",
+            author: "Alice Johnson",
         },
         {
             id: 4,
             title: "Breaking Down Industry News",
             excerpt: "Key takeaways from the latest gaming industry updates.",
-            date: "Nov 20, 2024",
+            date: new Date(2024, 10, 20),
             category: "PC",
             slug: "industry-news-breakdown",
+            image: "/path/to/image4.jpg",
+            author: "Bob Brown",
         },
     ];
 
@@ -51,6 +60,8 @@ const BlogPostsPage = () => {
         return matchesSearch && matchesCategory;
     });
 
+    const maxDescriptionLength = 200;
+
     return (
         <>
             <section className="bg-gray-900 text-white">
@@ -59,45 +70,40 @@ const BlogPostsPage = () => {
                         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                         style={{ backgroundImage: "url('/post/banner.jpg')" }}
                     ></div>
-
                     <div className="absolute inset-0 bg-black bg-opacity-10"></div>
-
                     <div className="relative z-10 flex flex-col items-center justify-center text-center h-full px-4">
-                        <p className="text-lg md:text-xl max-w-2xl">
-                            Latest Game News, Updates, and Insights
-                        </p>
+                        <p className="text-lg md:text-xl max-w-2xl">Latest Game News, Updates, and Insights</p>
                     </div>
                 </div>
             </section>
-            <div style={{ display: "flex", gap: "2rem", padding: "2rem", maxWidth: "1200px", margin: "auto" }}>
-
-                {/* Sidebar */}
-                <aside style={{ flex: "1", maxWidth: "300px" }}>
-                    <h2 style={{ color: "#1976d2", marginBottom: "1rem" }}>Categories</h2>
-                    <ul style={{ listStyle: "none", padding: 0 }}>
+            <div
+                className="flex flex-col md:flex-row gap-6 p-6 max-w-5xl mx-auto"
+            >
+                {/* Sidebar - Categories */}
+                <div>
+                    <aside
+                        className="top-4 bg-white shadow-md rounded-lg p-4 flex flex-wrap flex-row md:flex-col gap-4 overflow-x-auto md:overflow-visible"
+                        style={{ minWidth: "fit-content" }}
+                    >
                         {categories.map((category) => (
-                            <li
+                            <div
                                 key={category}
-                                style={{
-                                    padding: "0.5rem 1rem",
-                                    borderRadius: "8px",
-                                    backgroundColor: activeCategory === category ? "#1976d2" : "#f5f5f5",
-                                    color: activeCategory === category ? "#fff" : "#333",
-                                    marginBottom: "0.5rem",
-                                    cursor: "pointer",
-                                }}
+                                className={`cursor-pointer px-4 py-2 rounded-md ${activeCategory === category
+                                    ? "bg-[#f5aa5f] text-white"
+                                    : "bg-gray-200 text-gray-800"
+                                    }`}
                                 onClick={() => setActiveCategory(category)}
                             >
                                 {category}
-                            </li>
+                            </div>
                         ))}
-                    </ul>
-                </aside>
+                    </aside>
+                </div>
 
                 {/* Main content */}
-                <main style={{ flex: "3" }}>
+                <main className="flex-1">
                     {/* Search bar */}
-                    <div style={{ marginBottom: "2rem" }}>
+                    <div className="mb-6">
                         <TextField
                             variant="outlined"
                             label="Search articles"
@@ -111,38 +117,53 @@ const BlogPostsPage = () => {
                     <div>
                         {filteredPosts.length > 0 ? (
                             filteredPosts.map((post) => (
-                                <div
+                                <Card
                                     key={post.id}
-                                    style={{
-                                        border: "1px solid #ddd",
-                                        borderRadius: "8px",
-                                        padding: "1rem",
-                                        marginBottom: "1rem",
-                                    }}
+                                    className="shadow-lg mb-6 flex flex-col md:flex-row items-start"
                                 >
-                                    <h3 style={{ color: "#1976d2" }}>{post.title}</h3>
-                                    <p style={{ color: "#666", margin: "0.5rem 0" }}>
-                                        {post.date} | {post.category}
-                                    </p>
-                                    <p style={{ marginBottom: "1rem" }}>{post.excerpt}</p>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        href={`/blog/${post.slug}`}
-                                        style={{ marginTop: "1rem" }}
-                                    >
-                                        Read More
-                                    </Button>
-                                </div>
+                                    {/* Image */}
+                                    <div className="w-full flex-1 p-3">
+                                        <CardMedia
+                                            className="object-cover h-64 w-100"
+                                            component="img"
+                                            image={post.image}
+                                            alt={post.title}
+                                        />
+                                    </div>
+                                    {/* Content */}
+                                    <CardContent className="w-100 flex-1 p-4">
+                                        <h3 className="text-xl font-semibold">{post.title}</h3>
+                                        <Chip
+                                            label={post.category}
+                                            clickable
+                                            size="small"
+                                            className="text-white my-2"
+                                            sx={{
+                                                backgroundColor: "#F37901",
+                                                "&:hover": { backgroundColor: "#D56F00" },
+                                            }}
+                                        />
+                                        <div className="text-sm text-gray-500 my-2">
+                                            {formatDistanceToNow(post.date, { addSuffix: true })} | By{" "}
+                                            {post.author}
+                                        </div>
+                                        <p className="text-gray-800 text-sm mb-4">
+                                            {post.excerpt.length > maxDescriptionLength
+                                                ? post.excerpt.substring(0, maxDescriptionLength) + "..."
+                                                : post.excerpt}
+                                        </p>
+                                        <Button variant="text" color="primary" href={`/blog/${post.slug}`}>
+                                            Read More
+                                        </Button>
+                                    </CardContent>
+                                </Card>
                             ))
                         ) : (
-                            <p style={{ textAlign: "center", color: "#999" }}>No posts found.</p>
+                            <p className="text-center text-gray-500">No posts found.</p>
                         )}
                     </div>
                 </main>
             </div>
         </>
     );
-};
-
-export default BlogPostsPage;
+}
