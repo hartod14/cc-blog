@@ -57,14 +57,14 @@ export default function Home() {
 
   return (
     <>
-      <section className="bg-gray-900 text-white min-h-screen">
-        <div className="relative w-full h-[600px] bg-black">
+      <section className="bg-gray-900 text-white">
+        <div className="relative w-full h-[700px] bg-black">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: "url('/banner.png')" }}
           ></div>
 
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+          <div className="absolute inset-0 bg-black bg-opacity-20"></div>
 
           <div className="relative z-10 flex flex-col items-center justify-center text-center h-full px-4">
             <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Game Blog</h1>

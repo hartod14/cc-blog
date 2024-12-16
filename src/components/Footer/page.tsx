@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import React from 'react';
 import { Facebook, Twitter, Instagram, LinkedIn } from '@mui/icons-material';
+import Link from 'next/link';
 
 export default function Footer() {
     return (
@@ -18,10 +19,10 @@ export default function Footer() {
 
                     <nav className="mb-6 md:mb-0">
                         <ul className="flex space-x-6">
-                            <li><a href="#" className="hover:text-orange-500">Home</a></li>
-                            <li><a href="#" className="hover:text-orange-500">Blog Posts</a></li>
-                            <li><a href="#" className="hover:text-orange-500">Categories</a></li>
-                            <li><a href="#" className="hover:text-orange-500">About</a></li>
+                            <li><Link href="/" className="hover:text-orange-500">Home</Link></li>
+                            <li><Link href="/posts" className="hover:text-orange-500">Blog Posts</Link></li>
+                            <li><Link href="/categories" className="hover:text-orange-500">Categories</Link></li>
+                            <li><Link href="/about-us" className="hover:text-orange-500">About</Link></li>
                         </ul>
                     </nav>
 

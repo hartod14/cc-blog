@@ -1,6 +1,7 @@
 "use client"
 
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 
 export default function Header() {
@@ -38,10 +39,10 @@ export default function Header() {
 
                 <nav>
                     <ul className="flex space-x-6 text-white font-medium">
-                        <li><a href="#" className="hover:text-orange-500">Home</a></li>
-                        <li><a href="#" className="hover:text-orange-500">Blog Posts</a></li>
-                        <li><a href="#" className="hover:text-orange-500">Categories</a></li>
-                        <li><a href="#" className="hover:text-orange-500">About</a></li>
+                        <li><Link href="/" className="hover:text-orange-500">Home</Link></li>
+                        <li><Link href="/posts" className="hover:text-orange-500">Blog Posts</Link></li>
+                        <li><Link href="/categoriest" className="hover:text-orange-500">Categories</Link></li>
+                        <li><Link href="/about-us" className="hover:text-orange-500">About</Link></li>
                     </ul>
                 </nav>
             </div>
