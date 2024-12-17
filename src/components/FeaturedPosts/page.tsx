@@ -1,3 +1,5 @@
+"use client"
+
 import { Card, CardContent, CardMedia, Button, Chip } from '@mui/material';
 import { formatDistanceToNow } from 'date-fns';
 
