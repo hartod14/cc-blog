@@ -1,7 +1,6 @@
 import FeaturedPosts from '@/components/FeaturedPosts/page';
-import { Button, Box } from '@mui/material';
-import Image from 'next/image';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   const categories = [
@@ -30,7 +29,7 @@ export default function Home() {
   const featuredPosts = [
     {
       title: 'Exploring the New Horizon Game',
-      excerpt: 'Dive into the world of Horizon with our latest insights and updates. Explore the immersive landscapes, dynamic gameplay mechanics, and the stunning narrative that unfolds as you venture into the unknown. Horizon continues to set new benchmarks in the gaming industry with its innovation and breathtaking visuals.',
+      excerpt: 'Dive into the world of Horizon with our latest insights and updates...',
       image: '/banner.png',
       date: new Date(2024, 9, 15),
       author: 'John Doe',
@@ -38,100 +37,83 @@ export default function Home() {
     },
     {
       title: 'Mastering Your Skills in Valorant',
-      excerpt: 'Tips and tricks to elevate your gameplay in Valorant. Learn advanced strategies, improve your aim, and unlock secrets to mastering each agent’s abilities. Whether you’re a beginner or an experienced player, these techniques will help you climb the ranks and dominate the battlefield.',
+      excerpt: 'Tips and tricks to elevate your gameplay in Valorant...',
       image: '/valorant.jpg',
-      date: new Date(2024, 8, 30), // Example date
+      date: new Date(2024, 8, 30),
       author: 'Jane Smith',
       categories: ['Shooter', 'Esports'],
-    },
-    {
-      title: 'The Rise of Indie Games',
-      excerpt: 'Discover how indie games are reshaping the gaming industry. With innovative storytelling, unique gameplay mechanics, and passionate communities, indie games have become a driving force in the gaming world. These small studios are pushing boundaries and creating experiences that rival AAA titles.',
-      image: '/indie-games.jpg',
-      date: new Date(2024, 7, 25), // Example date
-      author: 'Mark Johnson',
-      categories: ['Indie', 'Gaming Industry'],
     },
   ];
 
   return (
     <>
       <section className="bg-gray-900 text-white">
-        <div className="relative w-full h-[700px] bg-black">
+        <div className="relative w-full h-[700px]">
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 bg-cover bg-center"
             style={{ backgroundImage: "url('/banner.png')" }}
           ></div>
-
-          <div className="absolute inset-0 bg-black bg-opacity-20"></div>
-
+          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
           <div className="relative z-10 flex flex-col items-center justify-center text-center h-full px-4">
             <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Game Blog</h1>
             <p className="text-lg md:text-xl max-w-2xl">
-              Dive into the latest news and updates from the gaming world. Explore reviews, tips, and insights about the hottest games!
+              Dive into the latest news and updates from the gaming world.
             </p>
           </div>
         </div>
       </section>
 
-      <FeaturedPosts posts={featuredPosts} />
+      <FeaturedPosts />
 
-      <section className="bg-gray-900  py-20 md:py-32">
+      <section className="bg-gray-900 py-20 md:py-32">
         <div className="container mx-auto px-4 text-white">
-          <h2 className="text-4xl text-center text-white mb-16 font-semibold">Hot Topic Categories</h2>
+          <h2 className="text-4xl text-center mb-16 font-semibold">Hot Topic Categories</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.slice(0, 4).map((category, index) => (
-              <Box
+            {categories.map((category, index) => (
+              <Link
                 key={index}
-                className="flex flex-col items-center border border-gray-700 rounded-lg hover:shadow-lg transition duration-300 ease-in-out"
+                href="/about-us"
+                className="card bg-gray-800 shadow-lg rounded-lg hover:shadow-2xl transition-all"
               >
-                <Link href="/about-us" className="w-full h-full p-4 ">
-                  <h3 className="text-xl font-bold mb-3 text-orange">{category.name}</h3>
-
+                <figure>
                   <Image
-                    width={480}
-                    height={240}
                     src={category.image}
                     alt={category.name}
-                    className="w-full h-32 object-cover rounded-md mb-3"
+                    width={480}
+                    height={240}
+                    className="w-full h-32 object-cover"
                   />
-
-                  <div className="text-center text-gray-400 text-sm">
-                    {category.description}
-                  </div>
-                </Link>
-              </Box>
+                </figure>
+                <div className="card-body text-center">
+                  <h3 className="text-xl font-bold text-orange-500">{category.name}</h3>
+                  <p className="text-gray-400 text-sm">{category.description}</p>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="  py-20 md:py-32">
-        <div className="container mx-auto px-4 text-white">
-          <Box className="flex flex-col lg:flex-row gap-12 items-center justify-between">
-            <div className="lg:w-1/2 mb-4 lg:mb-0">
-              <Image width={720} height={720}
+      <section className="py-20 md:py-32">
+        <div className="container mx-auto px-4 text-gray-800">
+          <div className="flex flex-col lg:flex-row gap-12 items-center justify-between">
+            <div className="lg:w-1/2">
+              <Image
                 src="/newslatter.png"
                 alt="Subscribe to Newsletter"
-                className="w-full h-96 object-cover rounded-md"
+                width={720}
+                height={720}
+                className="rounded-lg"
               />
             </div>
-
             <div className="lg:w-1/2 text-center lg:text-left">
-              <h2 className="text-2xl text-black font-semibold mb-3">Stay Updated with Our Newsletter</h2>
-              <p className="text-gray-800 mb-6">
-                Get the latest gaming news, updates, and exclusive offers delivered straight to your inbox.
-              </p>
-              <Button
-                variant="contained"
-                className="bg-[#F37901] text-white hover:bg-[#D96A00] mt-3"
-                size="large"
-                href="#subscribe"
-              >
+              <h2 className="text-3xl font-bold mb-3">Stay Updated with Our Newsletter</h2>
+              <p className="mb-6">Get the latest gaming news delivered to your inbox.</p>
+              <button className="btn btn-primary bg-orange-500 hover:bg-orange-600 border-none text-white">
                 Subscribe Now
-              </Button>
+              </button>
             </div>
-          </Box>
+          </div>
         </div>
       </section>
     </>

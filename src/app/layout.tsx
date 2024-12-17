@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "@/components/Header/page";
 import Footer from "@/components/Footer/page";
-import ThemeRegistry from "@/components/ThemeRegistry/page";
 
 
 export const metadata: Metadata = {
@@ -19,9 +18,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Header />
-        <ThemeRegistry>
-          {children}
-        </ThemeRegistry>
+        {children}
         <Footer />
       </body>
     </html>
