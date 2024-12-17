@@ -53,7 +53,6 @@ export default function Home() {
       categories: ['Indie', 'Gaming Industry'],
     },
   ];
-  const maxDescriptionLength = 200;
 
   return (
     <>
