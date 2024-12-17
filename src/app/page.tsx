@@ -1,6 +1,5 @@
 import FeaturedPosts from '@/components/FeaturedPosts/page';
-import { Card, CardContent, CardMedia, Button, Chip, Box } from '@mui/material';
-import { formatDistanceToNow } from 'date-fns';
+import { Button, Box } from '@mui/material';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -76,7 +75,7 @@ export default function Home() {
         </div>
       </section>
 
-      <FeaturedPosts posts={featuredPosts} maxDescriptionLength={maxDescriptionLength} />
+      <FeaturedPosts posts={featuredPosts} />
 
       <section className="bg-gray-900  py-20 md:py-32">
         <div className="container mx-auto px-4 text-white">
