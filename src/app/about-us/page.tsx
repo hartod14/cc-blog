@@ -183,7 +183,7 @@ export default function About() {
         <section className="bg-gradient-to-r from-black to-gray-700 text-white py-20 px-4 rounded-lg shadow-lg">
           <h2 className="text-3xl font-semibold text-center mb-6 text-primary">Contact Information</h2>
           <p className="text-lg text-center mb-8">
-            We'd love to hear from our readers! Feel free to reach out to us through any of the following platforms:
+            We&rsquo;d love to hear from our readers! Feel free to reach out to us through any of the following platforms:
           </p>
           <div className="flex flex-wrap gap-4 justify-center space-x-8">
             <Link
