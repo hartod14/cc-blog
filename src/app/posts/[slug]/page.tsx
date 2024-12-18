@@ -11,6 +11,11 @@ import RichText from "@/components/Global/RichText";
 import { Entry } from "contentful";
 import { Document } from "@contentful/rich-text-types";
 
+// Type guard to check if an object is of type IContentfulAsset
+function isContentfulAsset(asset: any): asset is IContentfulAsset {
+    return asset?.fields?.file?.url !== undefined;
+}
+
 export default function PostDetail() {
     const params = useParams<{ slug: string }>();
     const [post, setPost] = useState<Entry<TypeBlogPostSkeleton> | null>(null);
@@ -38,11 +43,13 @@ export default function PostDetail() {
             {post && (
                 <div className="mt-12 p-10">
                     <div>
-                        <img
-                            src={`https:${(post?.fields.image as IContentfulAsset)?.fields.file.url}`}
-                            alt={String(post?.fields.title)}
-                            className="w-full h-40 object-cover"
-                        />
+                        {isContentfulAsset(post?.fields.image) && (
+                            <img
+                                src={`https:${post?.fields.image.fields.file.url}`}
+                                alt={String(post?.fields.title)} 
+                                className="w-full h-40 object-cover"
+                            />
+                        )}
                     </div>
                     <div className="text-5xl text-black font-semibold">
                         {String(post?.fields.title)}

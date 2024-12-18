@@ -1,7 +1,7 @@
 import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 
 export interface TypeBlogPostFields {
-   title: EntryFieldTypes.Symbol;
+    title: EntryFieldTypes.Symbol;
     description: EntryFieldTypes.RichText;
     shortDescription: EntryFieldTypes.Text;
     date: EntryFieldTypes.Date;
@@ -16,11 +16,11 @@ export interface IContentfulAsset {
     fields: {
         file: {
             url: string;
-            details?: any;
+            details?: string | null;  // Changed to `string | null` to avoid `any` and be more specific
             fileName?: string;
-            contentType?: string
-        }
-    }
+            contentType?: string;
+        };
+    };
 }
 
 export type TypeBlogPostSkeleton = EntrySkeletonType<TypeBlogPostFields, "blogPost">;

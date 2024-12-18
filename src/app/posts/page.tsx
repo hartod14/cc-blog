@@ -22,6 +22,7 @@ export default function PostPage() {
     const [search, setSearch] = useState("");
     const [activeCategory, setActiveCategory] = useState("All");
     const categories = ["All", "E-Sport", "Console", "RPG", "PC"];
+    
 
     useEffect(() => {
         const fetchPosts = async () => {
