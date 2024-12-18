@@ -13,7 +13,7 @@ import { Document } from "@contentful/rich-text-types";
 
 export default function PostDetail() {
     const params = useParams<{ slug: string }>();
-    const [post, setPost] = useState<Entry<TypeBlogPostSkeleton> | null>(null); // Change to single Entry or null
+    const [post, setPost] = useState<Entry<TypeBlogPostSkeleton> | null>(null);
 
     const fetchPost = async () => {
         try {
@@ -23,7 +23,6 @@ export default function PostDetail() {
                 "fields.slug": params.slug
             });
 
-            // Set the first post object (fields) to the state
             setPost(data?.items[0] || null);
         } catch (error) {
             console.log(error);
@@ -32,7 +31,7 @@ export default function PostDetail() {
 
     useEffect(() => {
         fetchPost();
-    }, [params.slug]); // Ensure to refetch on slug change
+    }, [params.slug]);
 
     return (
         <div>
@@ -41,16 +40,14 @@ export default function PostDetail() {
                     <div>
                         <img
                             src={`https:${(post?.fields.image as IContentfulAsset)?.fields.file.url}`}
-                            alt={String(post?.fields.title)} // Ensures alt is always a string
+                            alt={String(post?.fields.title)}
                             className="w-full h-40 object-cover"
                         />
-
                     </div>
                     <div className="text-5xl text-black font-semibold">
                         {String(post?.fields.title)}
                     </div>
                     <RichText document={post?.fields.description as Document} />
-
                 </div>
             )}
         </div>
