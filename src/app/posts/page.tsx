@@ -15,14 +15,39 @@ const getBlogPostsContentful = async (): Promise<Entry<TypeBlogPostSkeleton>[]> 
         return [];
     }
 };
+type AssetFields = {
+    file: {
+        url: string;
+    };
+};
+
+type Asset = {
+    fields: AssetFields;
+};
+
+type UnresolvedLink<T> = {
+    sys: {
+        id: string;
+    };
+};
+
+type ImageType = Asset | UnresolvedLink<"Asset"> | { fields?: undefined };
+
+const isAsset = (image: ImageType): image is Asset => {
+    return (image as Asset).fields !== undefined;
+};
+
+const isUnresolvedLink = (image: ImageType): image is UnresolvedLink<"Asset"> => {
+    return (image as UnresolvedLink<"Asset">).sys !== undefined;
+};
 
 const mapContentfulToPost = (entry: Entry<TypeBlogPostSkeleton>): IPost => {
     return {
         fields: {
             title: typeof entry.fields.title === "string" ? entry.fields.title : "",
 
-            image: entry.fields.image && 'file' in (entry.fields.image as any)?.fields
-                ? { fields: { file: { url: (entry.fields.image as any).fields.file.url } } }
+            image: entry.fields.image && (isAsset(entry.fields.image) || isUnresolvedLink(entry.fields.image))
+                ? { fields: { file: { url: isAsset(entry.fields.image) ? entry.fields.image.fields.file.url : "" } } }
                 : { fields: { file: { url: "" } } }, // Default empty image object
 
             categories: Array.isArray(entry.fields.categories) ? entry.fields.categories : [],
@@ -39,7 +64,6 @@ const mapContentfulToPost = (entry: Entry<TypeBlogPostSkeleton>): IPost => {
         },
     };
 };
-
 
 export default function PostPage() {
     const [posts, setPosts] = useState<IPost[]>([]); // Define state with the correct type
