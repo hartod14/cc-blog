@@ -8,10 +8,12 @@ import {
 } from "@/contentful/types/blogPost.types";
 import { useParams } from "next/navigation";
 import RichText from "@/components/Global/RichText";
+import { Entry } from "contentful";
+import { Document } from "@contentful/rich-text-types";
 
 export default function PostDetail() {
     const params = useParams<{ slug: string }>();
-    const [post, setPost] = useState<any>();
+    const [post, setPost] = useState<Entry<TypeBlogPostSkeleton> | null>(null); // Change to single Entry or null
 
     const fetchPost = async () => {
         try {
@@ -19,17 +21,18 @@ export default function PostDetail() {
                 content_type: "blogPost",
                 limit: 1,
                 "fields.slug": params.slug
-            })
+            });
 
-            setPost(data.items[0].fields)
+            // Set the first post object (fields) to the state
+            setPost(data?.items[0] || null);
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     useEffect(() => {
-        fetchPost()
-    }, [])
+        fetchPost();
+    }, [params.slug]); // Ensure to refetch on slug change
 
     return (
         <div>
@@ -37,18 +40,19 @@ export default function PostDetail() {
                 <div className="mt-12 p-10">
                     <div>
                         <img
-                            src={`https:${(post?.image as IContentfulAsset)?.fields.file.url}`}
-                            alt={post?.title}
+                            src={`https:${(post?.fields.image as IContentfulAsset)?.fields.file.url}`}
+                            alt={String(post?.fields.title)} // Ensures alt is always a string
                             className="w-full h-40 object-cover"
                         />
+
                     </div>
-                    <div className="tex-5xl text-black font-semibold">
-                        {post?.title}
+                    <div className="text-5xl text-black font-semibold">
+                        {String(post?.fields.title)}
                     </div>
-                    <RichText document={post?.description} />
+                    <RichText document={post?.fields.description as Document} />
+
                 </div>
-            )
-            }
+            )}
         </div>
-    )
+    );
 }
