@@ -8,19 +8,10 @@ import {
 } from "@/contentful/types/blogPost.types";
 import { useParams } from "next/navigation";
 import RichText from "@/components/Global/RichText";
-import { Entry } from "contentful";
-import { Document } from "@contentful/rich-text-types";
-
-// Type guard to check if an object is of type IContentfulAsset
-function isContentfulAsset(asset: unknown): asset is IContentfulAsset {
-    // Type guard logic: check if the asset has the expected fields
-    return (asset as IContentfulAsset)?.fields?.file?.url !== undefined;
-}
-
 
 export default function PostDetail() {
     const params = useParams<{ slug: string }>();
-    const [post, setPost] = useState<Entry<TypeBlogPostSkeleton> | null>(null);
+    const [post, setPost] = useState<any>();
 
     const fetchPost = async () => {
         try {
@@ -28,37 +19,36 @@ export default function PostDetail() {
                 content_type: "blogPost",
                 limit: 1,
                 "fields.slug": params.slug
-            });
+            })
 
-            setPost(data?.items[0] || null);
+            setPost(data.items[0].fields)
         } catch (error) {
             console.log(error);
         }
-    };
+    }
 
     useEffect(() => {
-        fetchPost();
-    }, [params.slug]);
+        fetchPost()
+    }, [])
 
     return (
         <div>
             {post && (
                 <div className="mt-12 p-10">
                     <div>
-                        {isContentfulAsset(post?.fields.image) && (
-                            <img
-                                src={`https:${post?.fields.image.fields.file.url}`}
-                                alt={String(post?.fields.title)} 
-                                className="w-full h-40 object-cover"
-                            />
-                        )}
+                        <img
+                            src={`https:${(post?.image as IContentfulAsset)?.fields.file.url}`}
+                            alt={post?.title}
+                            className="w-full h-40 object-cover"
+                        />
                     </div>
-                    <div className="text-5xl text-black font-semibold">
-                        {String(post?.fields.title)}
+                    <div className="tex-5xl text-black font-semibold">
+                        {post?.title}
                     </div>
-                    <RichText document={post?.fields.description as Document} />
+                    <RichText document={post?.description} />
                 </div>
-            )}
+            )
+            }
         </div>
-    );
+    )
 }
