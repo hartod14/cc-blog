@@ -62,20 +62,22 @@ export default function PostPage() {
             </section>
 
             <div className="flex flex-col md:flex-row gap-6 p-6 max-w-5xl mx-auto">
-                <aside className="top-4 bg-white shadow-md rounded-lg p-4 flex flex-wrap md:flex-col gap-4 min-w-fit">
-                    {categories.map((category) => (
-                        <div
-                            key={category}
-                            className={`cursor-pointer px-4 py-2 rounded-md ${activeCategory === category
-                                ? "bg-[#f5aa5f] text-white"
-                                : "bg-gray-200 text-gray-800"
-                                }`}
-                            onClick={() => setActiveCategory(category)}
-                        >
-                            {category}
-                        </div>
-                    ))}
-                </aside>
+                <div>
+                    <aside className="top-4 bg-white shadow-md rounded-lg p-4 flex flex-wrap md:flex-col gap-4 min-w-fit">
+                        {categories.map((category) => (
+                            <div
+                                key={category}
+                                className={`cursor-pointer px-4 py-2 rounded-md ${activeCategory === category
+                                    ? "bg-[#f5aa5f] text-white"
+                                    : "bg-gray-200 text-gray-800"
+                                    }`}
+                                onClick={() => setActiveCategory(category)}
+                            >
+                                {category}
+                            </div>
+                        ))}
+                    </aside>
+                </div>
 
                 <main className="flex-1">
                     <div className="mb-6">

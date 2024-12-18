@@ -1,3 +1,4 @@
+
 import { formatDistanceToNow } from 'date-fns';
 import contentfulClient from '@/contentful/contentfulClient';
 import { TypeBlogPostSkeleton, IContentfulAsset } from '@/contentful/types/blogPost.types';
@@ -6,7 +7,7 @@ import Link from 'next/link';
 
 const getBlogPostsContentful = async () => {
   try {
-    const data = await contentfulClient.getEntries<TypeBlogPostSkeleton>({ limit: 3 });
+    const data = await contentfulClient.getEntries<TypeBlogPostSkeleton>({ limit: 6 });
     return data;
   } catch (err) {
     console.log(err);
@@ -41,8 +42,7 @@ export default async function FeaturedPosts() {
                 <div className="flex flex-wrap gap-2 mb-2">
                   {post.fields.categories.map((category, idx) => (
                     <Link
-                      target='_blank'
-                      href={`/categories/${category}`}
+                      href={`/categories`}
                       key={idx}
                       className="bg-orange-500 text-white text-xs px-2 py-1 rounded-xl"
                     >

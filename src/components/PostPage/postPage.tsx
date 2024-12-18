@@ -15,22 +15,21 @@ export default function PostList({ posts }: any) {
                     key={index}
                     className="bg-white shadow-lg rounded-md overflow-hidden mb-6 flex flex-col md:flex-row"
                 >
-                    {/* Image */}
                     <div className="w-full flex-1 md:w-1/3">
-                        <img
-                            src={`https:${post.fields.image?.fields.file.url}`}
-                            alt={post.fields.title}
-                            className="object-cover w-full h-48 md:h-full"
-                        />
+                        <Link target='_blank' href={`posts/${post.fields.slug}`}>
+                            <img
+                                src={`https:${post.fields.image?.fields.file.url}`}
+                                alt={post.fields.title}
+                                className="object-cover w-full h-48 md:h-full hover:scale-105 transition-transform duration-300"
+                            />
+                        </Link>
                     </div>
-                    {/* Content */}
                     <div className="p-4 flex-1">
                         <h3 className="text-xl font-semibold text-gray-800">{post.fields.title}</h3>
-                        <div className="flex flex-wrap gap-2 mb-2">
+                        <div className="flex flex-wrap gap-2 my-2">
                             {post.fields.categories.map((category: any, idx: any) => (
                                 <Link
-                                    target="_blank"
-                                    href={`/categories/${category}`}
+                                    href={`/categories`}
                                     key={idx}
                                     className="bg-orange-500 text-white text-xs px-2 py-1 rounded-xl"
                                 >
@@ -38,7 +37,7 @@ export default function PostList({ posts }: any) {
                                 </Link>
                             ))}
                         </div>
-                        <div className="text-sm text-gray-500 mt-2">
+                        <div className="text-sm text-gray-500 mt-2 mb-1">
                             {formatDistanceToNow(new Date(post.fields.date), { addSuffix: true })} | By{" "}
                             {post.fields.author}
                         </div>
@@ -47,12 +46,13 @@ export default function PostList({ posts }: any) {
                                 ? post.fields.shortDescription.substring(0, maxDescriptionLength) + "..."
                                 : post.fields.shortDescription}
                         </p>
-                        <a
-                            href={`/blog/${post.fields.slug}`}
-                            className="mt-4 inline-block text-[#F37901] hover:underline"
-                        >
-                            Read More
-                        </a>
+                        <Link target='_blank' href={`posts/${post.fields.slug}`}>
+                            <div className="text-right">
+                                <button className="text-sm text-orange-600 border border-orange-600 px-3 py-1 rounded hover:bg-orange-600 hover:text-white transition-colors duration-300">
+                                    Read More
+                                </button>
+                            </div>
+                        </Link>
                     </div>
                 </div>
             ))}
