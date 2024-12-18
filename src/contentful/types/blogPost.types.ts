@@ -1,8 +1,9 @@
 import type { ChainModifiers, Entry, EntryFieldTypes, EntrySkeletonType, LocaleCode } from "contentful";
 
 export interface TypeBlogPostFields {
-    title: EntryFieldTypes.Symbol;
+   title: EntryFieldTypes.Symbol;
     description: EntryFieldTypes.RichText;
+    shortDescription: EntryFieldTypes.Text;
     date: EntryFieldTypes.Date;
     categories: EntryFieldTypes.Array<EntryFieldTypes.Symbol>;
     author: EntryFieldTypes.Symbol;

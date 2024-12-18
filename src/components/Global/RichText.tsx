@@ -8,5 +8,5 @@ type RichTextProps = {
 export default function RichText({ document }: RichTextProps) {
     if (!document) return null
 
-    return <>{documentToReactComponents(document)}</>
+    return <div>{documentToReactComponents(document)}</div>
 }

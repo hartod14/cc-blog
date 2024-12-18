@@ -28,14 +28,14 @@ export default function Header() {
                 }`}
         >
             <div className="container mx-auto px-4 py-1 flex items-center justify-between">
-                <div className="flex items-center">
+                <Link href={"/"}  className="flex items-center">
                     <Image
                         src="/gameblog.png"
                         width={200}
                         height={200}
                         alt="gameblog.logo"
                     />
-                </div>
+                </Link>
 
                 <nav>
                     <ul className="flex space-x-6 text-white font-medium">

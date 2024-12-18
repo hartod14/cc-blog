@@ -25,26 +25,6 @@ export default function Home() {
       image: '/categories/pc.jpg',
     },
   ];
-
-  const featuredPosts = [
-    {
-      title: 'Exploring the New Horizon Game',
-      excerpt: 'Dive into the world of Horizon with our latest insights and updates...',
-      image: '/banner.png',
-      date: new Date(2024, 9, 15),
-      author: 'John Doe',
-      categories: ['Action', 'Adventure'],
-    },
-    {
-      title: 'Mastering Your Skills in Valorant',
-      excerpt: 'Tips and tricks to elevate your gameplay in Valorant...',
-      image: '/valorant.jpg',
-      date: new Date(2024, 8, 30),
-      author: 'Jane Smith',
-      categories: ['Shooter', 'Esports'],
-    },
-  ];
-
   return (
     <>
       <section className="bg-gray-900 text-white">
@@ -73,7 +53,8 @@ export default function Home() {
               <Link
                 key={index}
                 href="/about-us"
-                className="card bg-gray-800 shadow-lg rounded-lg hover:shadow-2xl transition-all"
+                aria-label={`Learn more about ${category.name}`}
+                className="card bg-gray-800 shadow-lg rounded-lg transition-all hover:shadow-2xl hover:scale-105"
               >
                 <figure>
                   <Image
@@ -81,18 +62,21 @@ export default function Home() {
                     alt={category.name}
                     width={480}
                     height={240}
-                    className="w-full h-32 object-cover"
+                    className="w-full h-40 object-cover rounded-t-lg"
                   />
                 </figure>
-                <div className="card-body text-center">
-                  <h3 className="text-xl font-bold text-orange-500">{category.name}</h3>
-                  <p className="text-gray-400 text-sm">{category.description}</p>
+                <div className="card-body text-center p-4">
+                  <h3 className="text-xl font-bold text-orange-500 transition-colors hover:text-orange-400">
+                    {category.name}
+                  </h3>
+                  <p className="text-gray-400 text-sm mt-2">{category.description}</p>
                 </div>
               </Link>
             ))}
           </div>
         </div>
       </section>
+
 
       <section className="py-20 md:py-32">
         <div className="container mx-auto px-4 text-gray-800">
@@ -109,7 +93,7 @@ export default function Home() {
             <div className="lg:w-1/2 text-center lg:text-left">
               <h2 className="text-3xl font-bold mb-3">Stay Updated with Our Newsletter</h2>
               <p className="mb-6">Get the latest gaming news delivered to your inbox.</p>
-              <button className="btn btn-primary bg-orange-500 hover:bg-orange-600 border-none text-white">
+              <button className="btn btn-primary bg-orange-500 hover:bg-orange-600 border rounded-lg p-2 text-white">
                 Subscribe Now
               </button>
             </div>
