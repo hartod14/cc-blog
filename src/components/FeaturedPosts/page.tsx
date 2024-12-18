@@ -1,6 +1,6 @@
 import { formatDistanceToNow } from 'date-fns';
 import contentfulClient from '@/contentful/contentfulClient';
-import { TypeBlogPostSkeleton, IContentfulAsset } from '@/contentful/types/blogPost.types';
+import { TypeBlogPostSkeleton } from '@/contentful/types/blogPost.types';
 import Link from 'next/link';
 
 // Define the Asset type
