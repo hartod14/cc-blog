@@ -12,9 +12,11 @@ import { Entry } from "contentful";
 import { Document } from "@contentful/rich-text-types";
 
 // Type guard to check if an object is of type IContentfulAsset
-function isContentfulAsset(asset: any): asset is IContentfulAsset {
-    return asset?.fields?.file?.url !== undefined;
+function isContentfulAsset(asset: unknown): asset is IContentfulAsset {
+    // Type guard logic: check if the asset has the expected fields
+    return (asset as IContentfulAsset)?.fields?.file?.url !== undefined;
 }
+
 
 export default function PostDetail() {
     const params = useParams<{ slug: string }>();
