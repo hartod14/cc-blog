@@ -19,6 +19,7 @@ interface Post {
     };
 }
 
+
 interface PostListProps {
     posts: Post[];
 }

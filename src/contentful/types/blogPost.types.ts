@@ -16,10 +16,28 @@ export interface IContentfulAsset {
     fields: {
         file: {
             url: string;
-            details?: string | null;  // Changed to `string | null` to avoid `any` and be more specific
+            details?: string | null;
             fileName?: string;
             contentType?: string;
         };
+    };
+}
+
+export interface IPost {
+    fields: {
+        title: string;
+        image: {
+            fields: {
+                file: {
+                    url: string;
+                };
+            };
+        };
+        categories: string[];
+        date: string;
+        author: string;
+        shortDescription: string;
+        slug: string;
     };
 }
 

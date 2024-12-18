@@ -3,9 +3,8 @@
 import { useState, useEffect } from "react";
 import PostList from "@/components/PostPage/postPage";
 import contentfulClient from "@/contentful/contentfulClient";
-import { TypeBlogPostSkeleton } from "@/contentful/types/blogPost.types";
+import { IPost, TypeBlogPostSkeleton } from "@/contentful/types/blogPost.types";
 import { Entry } from "contentful";
-
 
 const getBlogPostsContentful = async (): Promise<Entry<TypeBlogPostSkeleton>[]> => {
     try {
@@ -17,17 +16,42 @@ const getBlogPostsContentful = async (): Promise<Entry<TypeBlogPostSkeleton>[]> 
     }
 };
 
+const mapContentfulToPost = (entry: Entry<TypeBlogPostSkeleton>): IPost => {
+    return {
+        fields: {
+            title: typeof entry.fields.title === "string" ? entry.fields.title : "",
+
+            image: entry.fields.image && 'file' in (entry.fields.image as any)?.fields
+                ? { fields: { file: { url: (entry.fields.image as any).fields.file.url } } }
+                : { fields: { file: { url: "" } } }, // Default empty image object
+
+            categories: Array.isArray(entry.fields.categories) ? entry.fields.categories : [],
+
+            date: typeof entry.fields.date === "string" ? entry.fields.date : "",
+
+            author: typeof entry.fields.author === "string" ? entry.fields.author : "",
+
+            shortDescription: typeof entry.fields.shortDescription === "string"
+                ? entry.fields.shortDescription
+                : "",
+
+            slug: typeof entry.fields.slug === "string" ? entry.fields.slug : "",
+        },
+    };
+};
+
+
 export default function PostPage() {
-    const [posts, setPosts] = useState<Entry<TypeBlogPostSkeleton>[]>([]); // Define state with the correct type
+    const [posts, setPosts] = useState<IPost[]>([]); // Define state with the correct type
     const [search, setSearch] = useState("");
     const [activeCategory, setActiveCategory] = useState("All");
     const categories = ["All", "E-Sport", "Console", "RPG", "PC"];
-    
 
     useEffect(() => {
         const fetchPosts = async () => {
             const data = await getBlogPostsContentful();
-            setPosts(data);
+            const mappedPosts = data.map(mapContentfulToPost); // Map Contentful entries to Post objects
+            setPosts(mappedPosts);
         };
         fetchPosts();
     }, []);
@@ -43,7 +67,6 @@ export default function PostPage() {
 
         return matchesSearch && matchesCategory;
     });
-
 
     return (
         <div>
@@ -78,7 +101,9 @@ export default function PostPage() {
                     ))}
                 </aside>
 
+                {/* Main Content */}
                 <main className="flex-1">
+                    {/* Search Bar */}
                     <div className="mb-6">
                         <input
                             type="text"
@@ -89,6 +114,7 @@ export default function PostPage() {
                         />
                     </div>
 
+                    {/* Render Posts */}
                     <PostList posts={filteredPosts} />
                 </main>
             </div>
