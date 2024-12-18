@@ -25,20 +25,20 @@ type Asset = {
     fields: AssetFields;
 };
 
-type UnresolvedLink<T> = {
+type UnresolvedLink = {
     sys: {
         id: string;
     };
 };
 
-type ImageType = Asset | UnresolvedLink<"Asset"> | { fields?: undefined };
+type ImageType = Asset | UnresolvedLink | { fields?: undefined };
 
 const isAsset = (image: ImageType): image is Asset => {
     return (image as Asset).fields !== undefined;
 };
 
-const isUnresolvedLink = (image: ImageType): image is UnresolvedLink<"Asset"> => {
-    return (image as UnresolvedLink<"Asset">).sys !== undefined;
+const isUnresolvedLink = (image: ImageType): image is UnresolvedLink => {
+    return (image as UnresolvedLink).sys !== undefined;
 };
 
 const mapContentfulToPost = (entry: Entry<TypeBlogPostSkeleton>): IPost => {
@@ -66,7 +66,7 @@ const mapContentfulToPost = (entry: Entry<TypeBlogPostSkeleton>): IPost => {
 };
 
 export default function PostPage() {
-    const [posts, setPosts] = useState<IPost[]>([]); // Define state with the correct type
+    const [posts, setPosts] = useState<IPost[]>([]);
     const [search, setSearch] = useState("");
     const [activeCategory, setActiveCategory] = useState("All");
     const categories = ["All", "E-Sport", "Console", "RPG", "PC"];
@@ -74,7 +74,7 @@ export default function PostPage() {
     useEffect(() => {
         const fetchPosts = async () => {
             const data = await getBlogPostsContentful();
-            const mappedPosts = data.map(mapContentfulToPost); // Map Contentful entries to Post objects
+            const mappedPosts = data.map(mapContentfulToPost); 
             setPosts(mappedPosts);
         };
         fetchPosts();
@@ -125,9 +125,7 @@ export default function PostPage() {
                     ))}
                 </aside>
 
-                {/* Main Content */}
                 <main className="flex-1">
-                    {/* Search Bar */}
                     <div className="mb-6">
                         <input
                             type="text"
@@ -138,7 +136,6 @@ export default function PostPage() {
                         />
                     </div>
 
-                    {/* Render Posts */}
                     <PostList posts={filteredPosts} />
                 </main>
             </div>
