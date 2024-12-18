@@ -1,7 +1,29 @@
 import { formatDistanceToNow } from "date-fns";
 import Link from "next/link";
 
-export default function PostList({ posts }: any) {
+interface Post {
+    fields: {
+        title: string;
+        image: {
+            fields: {
+                file: {
+                    url: string;
+                };
+            };
+        };
+        categories: string[];
+        date: string;
+        author: string;
+        shortDescription: string;
+        slug: string;
+    };
+}
+
+interface PostListProps {
+    posts: Post[];
+}
+
+export default function PostList({ posts }: PostListProps) {
     const maxDescriptionLength = 200;
 
     if (!posts.length) {
@@ -10,12 +32,11 @@ export default function PostList({ posts }: any) {
 
     return (
         <div>
-            {posts.map((post: any, index: any) => (
+            {posts.map((post, index) => (
                 <div
                     key={index}
                     className="bg-white shadow-lg rounded-md overflow-hidden mb-6 flex flex-col md:flex-row"
                 >
-                    {/* Image */}
                     <div className="w-full flex-1 md:w-1/3">
                         <img
                             src={`https:${post.fields.image?.fields.file.url}`}
@@ -23,11 +44,10 @@ export default function PostList({ posts }: any) {
                             className="object-cover w-full h-48 md:h-full"
                         />
                     </div>
-                    {/* Content */}
                     <div className="p-4 flex-1">
                         <h3 className="text-xl font-semibold text-gray-800">{post.fields.title}</h3>
                         <div className="flex flex-wrap gap-2 mb-2">
-                            {post.fields.categories.map((category: any, idx: any) => (
+                            {post.fields.categories.map((category, idx) => (
                                 <Link
                                     target="_blank"
                                     href={`/categories/${category}`}
