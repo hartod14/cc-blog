@@ -1,64 +1,76 @@
-"use client"
-
-import { useState, useEffect } from "react"
+import { formatDistanceToNow } from 'date-fns';
 import contentfulClient from '@/contentful/contentfulClient';
-import {
-    IContentfulAsset,
-    TypeBlogPostSkeleton,
-} from "@/contentful/types/blogPost.types";
-import { useParams } from "next/navigation";
-import RichText from "@/components/Global/RichText";
-import { Entry } from "contentful";
-import { Document } from "@contentful/rich-text-types";
-
-// Type guard to check if an object is of type IContentfulAsset
-function isContentfulAsset(asset: unknown): asset is IContentfulAsset {
-    // Type guard logic: check if the asset has the expected fields
-    return (asset as IContentfulAsset)?.fields?.file?.url !== undefined;
-}
+import { TypeBlogPostSkeleton, IContentfulAsset } from '@/contentful/types/blogPost.types';
+import Link from 'next/link';
 
 
-export default function PostDetail() {
-    const params = useParams<{ slug: string }>();
-    const [post, setPost] = useState<Entry<TypeBlogPostSkeleton> | null>(null);
+const getBlogPostsContentful = async () => {
+  try {
+    const data = await contentfulClient.getEntries<TypeBlogPostSkeleton>({ limit: 3 });
+    return data;
+  } catch (err) {
+    console.log(err);
+  }
+};
 
-    const fetchPost = async () => {
-        try {
-            const data = await contentfulClient.getEntries<TypeBlogPostSkeleton>({
-                content_type: "blogPost",
-                limit: 1,
-                "fields.slug": params.slug
-            });
+export default async function FeaturedPosts() {
+  const maxDescriptionLength = 200;
+  const posts = await getBlogPostsContentful();
 
-            setPost(data?.items[0] || null);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    useEffect(() => {
-        fetchPost();
-    }, [params.slug]);
-
-    return (
-        <div>
-            {post && (
-                <div className="mt-12 p-10">
-                    <div>
-                        {isContentfulAsset(post?.fields.image) && (
-                            <img
-                                src={`https:${post?.fields.image.fields.file.url}`}
-                                alt={String(post?.fields.title)} 
-                                className="w-full h-40 object-cover"
-                            />
-                        )}
-                    </div>
-                    <div className="text-5xl text-black font-semibold">
-                        {String(post?.fields.title)}
-                    </div>
-                    <RichText document={post?.fields.description as Document} />
+  return (
+    <section className="py-10 md:py-16">
+      <div className="container mx-auto px-4">
+        <h2 className="text-4xl text-center mb-8 font-semibold">Featured Posts</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {posts?.items?.map((post, index) => (
+            <div
+              key={index}
+              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+            >
+              <Link target='_blank' href={`posts/${post.fields.slug}`}>
+                <figure className="block overflow-hidden rounded-t-lg">
+                  <img
+                    src={`https:${(post.fields.image as IContentfulAsset)?.fields.file.url}`}
+                    alt={post.fields.title}
+                    className="w-full h-40 object-cover hover:scale-105 transition-transform duration-300"
+                  />
+                </figure>
+              </Link>
+              <div className="p-4">
+                <h3 className="text-md font-semibold mb-2">{post.fields.title}</h3>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {post.fields.categories.map((category, idx) => (
+                    <Link
+                      target='_blank'
+                      href={`/categories/${category}`}
+                      key={idx}
+                      className="bg-orange-500 text-white text-xs px-2 py-1 rounded-xl"
+                    >
+                      {category}
+                    </Link>
+                  ))}
                 </div>
-            )}
+                <div className="flex justify-between text-sm text-gray-500 mb-2">
+                  <span>{formatDistanceToNow(post.fields.date)} ago</span>
+                  <span>By {post.fields.author}</span>
+                </div>
+                <p className="text-gray-700 text-sm mb-4">
+                  {post.fields.shortDescription.length > maxDescriptionLength
+                    ? post.fields.shortDescription.substring(0, maxDescriptionLength) + '...'
+                    : post.fields.shortDescription}
+                </p>
+                <Link target='_blank' href={`posts/${post.fields.slug}`}>
+                  <div className="text-right">
+                    <button className="text-sm text-orange-600 border border-orange-600 px-3 py-1 rounded hover:bg-orange-600 hover:text-white transition-colors duration-300">
+                      Read More
+                    </button>
+                  </div>
+                </Link>
+              </div>
+            </div>
+          ))}
         </div>
-    );
+      </div>
+    </section>
+  );
 }

@@ -23,23 +23,5 @@ export interface IContentfulAsset {
     };
 }
 
-export interface IPost {
-    fields: {
-        title: string;
-        image: {
-            fields: {
-                file: {
-                    url: string;
-                };
-            };
-        };
-        categories: string[];
-        date: string;
-        author: string;
-        shortDescription: string;
-        slug: string;
-    };
-}
-
 export type TypeBlogPostSkeleton = EntrySkeletonType<TypeBlogPostFields, "blogPost">;
 export type TypeBlogPost<Modifiers extends ChainModifiers, Locales extends LocaleCode = LocaleCode> = Entry<TypeBlogPostSkeleton, Modifiers, Locales>;

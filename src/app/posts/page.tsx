@@ -3,8 +3,9 @@
 import { useState, useEffect } from "react";
 import PostList from "@/components/PostPage/postPage";
 import contentfulClient from "@/contentful/contentfulClient";
-import { IPost, TypeBlogPostSkeleton } from "@/contentful/types/blogPost.types";
+import { TypeBlogPostSkeleton } from "@/contentful/types/blogPost.types";
 import { Entry } from "contentful";
+
 
 const getBlogPostsContentful = async (): Promise<Entry<TypeBlogPostSkeleton>[]> => {
     try {
@@ -15,58 +16,9 @@ const getBlogPostsContentful = async (): Promise<Entry<TypeBlogPostSkeleton>[]> 
         return [];
     }
 };
-type AssetFields = {
-    file: {
-        url: string;
-    };
-};
-
-type Asset = {
-    fields: AssetFields;
-};
-
-type UnresolvedLink = {
-    sys: {
-        id: string;
-    };
-};
-
-type ImageType = Asset | UnresolvedLink | { fields?: undefined };
-
-const isAsset = (image: ImageType): image is Asset => {
-    return (image as Asset).fields !== undefined;
-};
-
-const isUnresolvedLink = (image: ImageType): image is UnresolvedLink => {
-    return (image as UnresolvedLink).sys !== undefined;
-};
-
-const mapContentfulToPost = (entry: Entry<TypeBlogPostSkeleton>): IPost => {
-    return {
-        fields: {
-            title: typeof entry.fields.title === "string" ? entry.fields.title : "",
-
-            image: entry.fields.image && (isAsset(entry.fields.image) || isUnresolvedLink(entry.fields.image))
-                ? { fields: { file: { url: isAsset(entry.fields.image) ? entry.fields.image.fields.file.url : "" } } }
-                : { fields: { file: { url: "" } } }, // Default empty image object
-
-            categories: Array.isArray(entry.fields.categories) ? entry.fields.categories : [],
-
-            date: typeof entry.fields.date === "string" ? entry.fields.date : "",
-
-            author: typeof entry.fields.author === "string" ? entry.fields.author : "",
-
-            shortDescription: typeof entry.fields.shortDescription === "string"
-                ? entry.fields.shortDescription
-                : "",
-
-            slug: typeof entry.fields.slug === "string" ? entry.fields.slug : "",
-        },
-    };
-};
 
 export default function PostPage() {
-    const [posts, setPosts] = useState<IPost[]>([]);
+    const [posts, setPosts] = useState<Entry<TypeBlogPostSkeleton>[]>([]); // Define state with the correct type
     const [search, setSearch] = useState("");
     const [activeCategory, setActiveCategory] = useState("All");
     const categories = ["All", "E-Sport", "Console", "RPG", "PC"];
@@ -74,8 +26,7 @@ export default function PostPage() {
     useEffect(() => {
         const fetchPosts = async () => {
             const data = await getBlogPostsContentful();
-            const mappedPosts = data.map(mapContentfulToPost); 
-            setPosts(mappedPosts);
+            setPosts(data);
         };
         fetchPosts();
     }, []);
@@ -91,6 +42,7 @@ export default function PostPage() {
 
         return matchesSearch && matchesCategory;
     });
+
 
     return (
         <div>
