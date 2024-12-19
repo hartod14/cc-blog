@@ -37,7 +37,7 @@ export default function Header() {
     // Function to check if the current page is the active one
     const getLinkClass = (link: string) => {
         return pathname === link
-            ? "text-orange-500" // Active link
+            ? "text-orange-500 font-bold" // Active link
             : "text-white hover:text-orange-500"; // Inactive link
     };
 

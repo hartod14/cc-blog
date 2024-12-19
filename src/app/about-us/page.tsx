@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Link from 'next/link'; // Import Link from next/link
+import Link from 'next/link';
 
 export default function About() {
   return (
@@ -94,7 +94,7 @@ export default function About() {
           <h2 className="text-3xl font-semibold text-primary mb-8 text-center">Meet the Authors</h2>
           <div className="flex flex-wrap justify-center gap-8">
             <div className="flex flex-col items-center text-center w-full md:w-1/4">
-              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-primary mb-4">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gray mb-4">
                 <Image
                   src="/about-us/author1.jpg"
                   alt="Author Image"
@@ -111,7 +111,7 @@ export default function About() {
             </div>
 
             <div className="flex flex-col items-center text-center w-full md:w-1/4">
-              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-primary mb-4">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gray mb-4">
                 <Image
                   src="/about-us/author5.jpg"
                   alt="Author Image"
@@ -128,7 +128,7 @@ export default function About() {
             </div>
 
             <div className="flex flex-col items-center text-center w-full md:w-1/4">
-              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-primary mb-4">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gray mb-4">
                 <Image
                   src="/about-us/author3.jpg"
                   alt="Author Image"
@@ -145,7 +145,7 @@ export default function About() {
             </div>
 
             <div className="flex flex-col items-center text-center w-full md:w-1/4">
-              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-primary mb-4">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gray mb-4">
                 <Image
                   src="/about-us/author4.jpg"
                   alt="Author Image"
@@ -162,7 +162,7 @@ export default function About() {
             </div>
 
             <div className="flex flex-col items-center text-center w-full md:w-1/4">
-              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-primary mb-4">
+              <div className="w-32 h-32 rounded-full overflow-hidden border-4 border-gray mb-4">
                 <Image
                   src="/about-us/author2.jpg"
                   alt="Author Image"

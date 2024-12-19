@@ -10,6 +10,7 @@ import { useParams } from "next/navigation";
 import RichText from "@/components/Global/RichText";
 import Link from "next/link";
 import { formatDistanceToNow } from 'date-fns';
+import Image from "next/image";
 
 export default function PostDetail() {
     const params = useParams<{ slug: string }>();
@@ -54,7 +55,9 @@ export default function PostDetail() {
             {post && (
                 <div className="">
                     <div className="mb-6">
-                        <img
+                        <Image
+                            width={720}
+                            height={480}
                             src={`https:${(post?.image as IContentfulAsset)?.fields.file.url}`}
                             alt={post?.title}
                             className="w-full h-60 md:h-80 object-cover rounded-md"

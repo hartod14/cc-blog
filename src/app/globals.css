@@ -49,11 +49,9 @@ body {
 
   100% {
     transform: translateY(0);
-    /* Return to original position */
   }
 }
 
 .animate-up-down {
   animation: up-down 3s ease-in-out infinite;
-  /* Apply the animation */
 }

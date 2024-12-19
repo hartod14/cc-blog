@@ -3,6 +3,7 @@ import { formatDistanceToNow } from 'date-fns';
 import contentfulClient from '@/contentful/contentfulClient';
 import { TypeBlogPostSkeleton, IContentfulAsset } from '@/contentful/types/blogPost.types';
 import Link from 'next/link';
+import Image from 'next/image';
 
 
 const getBlogPostsContentful = async () => {
@@ -30,7 +31,9 @@ export default async function FeaturedPosts() {
             >
               <Link target='_blank' href={`posts/${post.fields.slug}`}>
                 <figure className="block overflow-hidden rounded-t-lg">
-                  <img
+                  <Image
+                    width={720}
+                    height={480}
                     src={`https:${(post.fields.image as IContentfulAsset)?.fields.file.url}`}
                     alt={post.fields.title}
                     className="w-full h-40 object-cover hover:scale-105 transition-transform duration-300"
@@ -44,7 +47,7 @@ export default async function FeaturedPosts() {
                     <Link
                       href={`/categories`}
                       key={idx}
-                      className="bg-orange-500 text-white text-xs px-2 py-1 rounded-xl"
+                      className="bg-orange-500 text-white font-bold text-xs px-2 py-1 rounded-xl"
                     >
                       {category}
                     </Link>
@@ -61,7 +64,7 @@ export default async function FeaturedPosts() {
                 </p>
                 <Link target='_blank' href={`posts/${post.fields.slug}`}>
                   <div className="text-right">
-                    <button className="text-sm text-orange-600 border border-orange-600 px-3 py-1 rounded hover:bg-orange-600 hover:text-white transition-colors duration-300">
+                    <button className="text-sm text-orange-600 border border-orange-600 px-3 py-1 font-semibold rounded hover:bg-orange-600 hover:text-white transition-colors duration-300">
                       Read More
                     </button>
                   </div>

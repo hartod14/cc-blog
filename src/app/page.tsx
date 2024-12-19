@@ -93,7 +93,7 @@ export default function Home() {
             <div className="lg:w-1/2 text-center lg:text-left">
               <h2 className="text-3xl font-bold mb-3">Stay Updated with Our Newsletter</h2>
               <p className="mb-6">Get the latest gaming news delivered to your inbox.</p>
-              <button className="btn btn-primary bg-orange-500 hover:bg-orange-600 border rounded-lg p-2 text-white">
+              <button className="btn btn-primary font-semibold bg-orange-500 hover:bg-orange-600 border rounded-lg p-2 text-white">
                 Subscribe Now
               </button>
             </div>

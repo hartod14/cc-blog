@@ -1,4 +1,5 @@
 import { formatDistanceToNow } from "date-fns";
+import Image from "next/image";
 import Link from "next/link";
 
 export default function PostList({ posts }: any) {
@@ -17,7 +18,9 @@ export default function PostList({ posts }: any) {
                 >
                     <div className="w-full flex-1 md:w-1/3">
                         <Link target='_blank' href={`posts/${post.fields.slug}`}>
-                            <img
+                            <Image
+                                width={720}
+                                height={480}
                                 src={`https:${post.fields.image?.fields.file.url}`}
                                 alt={post.fields.title}
                                 className="object-cover w-full h-48 md:h-full hover:scale-105 transition-transform duration-300"
@@ -31,7 +34,7 @@ export default function PostList({ posts }: any) {
                                 <Link
                                     href={`/categories`}
                                     key={idx}
-                                    className="bg-orange-500 text-white text-xs px-2 py-1 rounded-xl"
+                                    className="bg-orange-500 text-white text-xs px-2 py-1 rounded-xl font-bold"
                                 >
                                     {category}
                                 </Link>
@@ -48,7 +51,7 @@ export default function PostList({ posts }: any) {
                         </p>
                         <Link target='_blank' href={`posts/${post.fields.slug}`}>
                             <div className="text-right">
-                                <button className="text-sm text-orange-600 border border-orange-600 px-3 py-1 rounded hover:bg-orange-600 hover:text-white transition-colors duration-300">
+                                <button className="text-sm text-orange-600 border border-orange-600 px-3 py-1 rounded font-semibold hover:bg-orange-600 hover:text-white transition-colors duration-300">
                                     Read More
                                 </button>
                             </div>

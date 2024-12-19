@@ -1,9 +1,10 @@
-"use client"; 
+"use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 import { IContentfulAsset } from "@/contentful/types/blogPost.types";
+import Image from "next/image";
 
 function CategoriesSection({ category, postsByCategory }: any) {
     const [showFullPosts, setShowFullPosts] = useState(false);
@@ -30,7 +31,7 @@ function CategoriesSection({ category, postsByCategory }: any) {
                 <div className="text-center mt-6">
                     <button
                         onClick={toggleShowFullPosts}
-                        className="text-orange-500 mt-4 border border-orange-500 px-3 py-2 rounded-lg hover:text-white hover:bg-orange-500"
+                        className="text-orange-500 mt-4 border border-orange-500 px-3 py-2 font-semibold rounded-lg hover:text-white hover:bg-orange-500"
                     >
                         Show More...
                     </button>
@@ -54,7 +55,9 @@ function PostCard({ post }: any) {
         <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300">
             <Link href={`posts/${post.fields.slug}`}>
                 <figure className="block overflow-hidden rounded-t-lg">
-                    <img
+                    <Image
+                        width={720}
+                        height={480}
                         src={`https:${(post.fields.image as IContentfulAsset)?.fields.file.url}`}
                         alt={post.fields.title}
                         className="w-full h-40 object-cover hover:scale-105 transition-transform duration-300"
@@ -67,7 +70,7 @@ function PostCard({ post }: any) {
                     {post.fields.categories.map((category: any, idx: any) => (
                         <div
                             key={idx}
-                            className="bg-orange-500 text-white text-xs px-2 py-1 rounded-xl"
+                            className="bg-orange-500 text-white text-xs px-2 py-1 rounded-xl font-bold"
                         >
                             {category}
                         </div>
@@ -84,7 +87,7 @@ function PostCard({ post }: any) {
                 </p>
                 <Link href={`posts/${post.fields.slug}`}>
                     <div className="text-right">
-                        <button className="text-sm text-orange-600 border border-orange-600 px-3 py-1 rounded hover:bg-orange-600 hover:text-white transition-colors duration-300">
+                        <button className="text-sm text-orange-600 border border-orange-600 px-3 py-1 font-semibold rounded hover:bg-orange-600 hover:text-white transition-colors duration-300">
                             Read More
                         </button>
                     </div>
