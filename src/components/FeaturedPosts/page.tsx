@@ -29,7 +29,7 @@ export default async function FeaturedPosts() {
               key={index}
               className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
             >
-              <Link target='_blank' href={`posts/${post.fields.slug}`}>
+              <Link target='_blank' href={`posts/${post.fields.slug}`} aria-label={`Read more about ${post.fields.title}`}>
                 <figure className="block overflow-hidden rounded-t-lg">
                   <Image
                     width={720}
