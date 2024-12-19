@@ -29,16 +29,14 @@ export default function Header() {
         };
     }, [isPostDetailPage]);
 
-    // Close the menu when a link is clicked
     const handleLinkClick = () => {
         setIsMenuOpen(false);
     };
 
-    // Function to check if the current page is the active one
     const getLinkClass = (link: string) => {
         return pathname === link
-            ? "text-orange-500 font-bold" // Active link
-            : "text-white hover:text-orange-500"; // Inactive link
+            ? "text-orange-500 font-bold"
+            : "text-white hover:text-orange-500";
     };
 
     return (
@@ -81,10 +79,10 @@ export default function Header() {
                     </ul>
                 </nav>
 
-                {/* Mobile Burger Button */}
                 <button
                     className="md:hidden text-white"
                     onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    aria-label="Toggle navigation menu"
                 >
                     <div className="space-y-2">
                         <span className="block w-6 h-1 bg-white"></span>
@@ -94,15 +92,14 @@ export default function Header() {
                 </button>
             </div>
 
-            {/* Mobile Sidebar Menu */}
             {isMenuOpen && (
                 <div
                     className="md:hidden fixed inset-0 bg-black bg-opacity-50 z-40 flex items-center justify-center"
-                    onClick={() => setIsMenuOpen(false)} // Close the menu when clicking outside
+                    onClick={() => setIsMenuOpen(false)}
                 >
                     <div
                         className="bg-gray-900 p-6 rounded-md w-3/4"
-                        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside the sidebar
+                        onClick={(e) => e.stopPropagation()}
                     >
                         <ul className="space-y-6 text-center text-lg font-medium">
                             <li>

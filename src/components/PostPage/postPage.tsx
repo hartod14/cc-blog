@@ -34,7 +34,7 @@ export default function PostList({ posts }: any) {
                                 <Link
                                     href={`/categories`}
                                     key={idx}
-                                    className="bg-orange-500 text-white text-xs px-2 py-1 rounded-xl font-bold"
+                                    className="bg-orange-600 text-white text-xs px-2 py-1 rounded-xl font-bold"
                                 >
                                     {category}
                                 </Link>

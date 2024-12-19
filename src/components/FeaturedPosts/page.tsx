@@ -47,7 +47,7 @@ export default async function FeaturedPosts() {
                     <Link
                       href={`/categories`}
                       key={idx}
-                      className="bg-orange-500 text-white font-bold text-xs px-2 py-1 rounded-xl"
+                      className="bg-orange-600 text-white font-bold text-xs px-2 py-1 rounded-xl"
                     >
                       {category}
                     </Link>

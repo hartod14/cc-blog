@@ -31,7 +31,7 @@ function CategoriesSection({ category, postsByCategory }: any) {
                 <div className="text-center mt-6">
                     <button
                         onClick={toggleShowFullPosts}
-                        className="text-orange-500 mt-4 border border-orange-500 px-3 py-2 font-semibold rounded-lg hover:text-white hover:bg-orange-500"
+                        className="text-orange-500 mt-4 border border-orange-500 px-3 py-2 font-semibold rounded-lg hover:text-white hover:bg-orange-600"
                     >
                         Show More...
                     </button>
@@ -70,7 +70,7 @@ function PostCard({ post }: any) {
                     {post.fields.categories.map((category: any, idx: any) => (
                         <div
                             key={idx}
-                            className="bg-orange-500 text-white text-xs px-2 py-1 rounded-xl font-bold"
+                            className="bg-orange-600 text-white text-xs px-2 py-1 rounded-xl font-bold"
                         >
                             {category}
                         </div>

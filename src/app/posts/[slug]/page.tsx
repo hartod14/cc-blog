@@ -73,7 +73,7 @@ export default function PostDetail() {
                                     <Link
                                         href={`/categories`}
                                         key={idx}
-                                        className="bg-orange-500 text-white text-xs px-2 py-1 rounded-xl"
+                                        className="bg-orange-600 text-white text-xs px-2 py-1 rounded-xl"
                                     >
                                         {category}
                                     </Link>
@@ -119,7 +119,7 @@ export default function PostDetail() {
                                             <Link
                                                 href={`/categories`}
                                                 key={idx}
-                                                className="bg-orange-500 text-white text-xs px-2 py-1 rounded-xl"
+                                                className="bg-orange-600 text-white text-xs px-2 py-1 rounded-xl"
                                             >
                                                 {category}
                                             </Link>

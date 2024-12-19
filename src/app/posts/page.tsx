@@ -68,7 +68,7 @@ export default function PostPage() {
                             <div
                                 key={category}
                                 className={`cursor-pointer px-4 py-2 rounded-md ${activeCategory === category
-                                    ? "bg-orange-500 text-white"
+                                    ? "bg-orange-600 text-white"
                                     : "bg-gray-200 text-gray-800"
                                     }`}
                                 onClick={() => setActiveCategory(category)}

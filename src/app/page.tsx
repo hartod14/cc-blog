@@ -31,9 +31,9 @@ export default function Home() {
         <div className="relative w-full h-[700px]">
           <div
             className="absolute inset-0 bg-cover bg-center"
-            style={{ backgroundImage: "url('/banner.png')" }}
+            style={{ backgroundImage: "url('/banner.jpg')" }}
           ></div>
-          <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+          <div className="absolute inset-0 bg-black bg-opacity-60"></div>
           <div className="relative z-10 flex flex-col items-center justify-center text-center h-full px-4">
             <h1 className="text-4xl md:text-6xl font-bold mb-4">Welcome to Game Blog</h1>
             <p className="text-lg md:text-xl max-w-2xl">
@@ -93,7 +93,7 @@ export default function Home() {
             <div className="lg:w-1/2 text-center lg:text-left">
               <h2 className="text-3xl font-bold mb-3">Stay Updated with Our Newsletter</h2>
               <p className="mb-6">Get the latest gaming news delivered to your inbox.</p>
-              <button className="btn btn-primary font-semibold bg-orange-500 hover:bg-orange-600 border rounded-lg p-2 text-white">
+              <button className="btn btn-primary font-semibold bg-orange-600 hover:bg-orange-600 border rounded-lg p-2 text-white">
                 Subscribe Now
               </button>
             </div>
