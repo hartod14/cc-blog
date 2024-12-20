@@ -1,9 +1,20 @@
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 import Link from "next/link";
+import SkeletonPost from "../SekeletonLoaderCard/loader";
 
-export default function PostList({ posts }: any) {
+export default function PostList({ posts, loading }: { posts: any[]; loading: boolean }) {
     const maxDescriptionLength = 200;
+
+    if (loading) {
+        return (
+            <div>
+                {Array.from({ length: 3 }).map((_, index) => (
+                    <SkeletonPost key={index} />
+                ))}
+            </div>
+        );
+    }
 
     if (!posts.length) {
         return <p className="text-center text-gray-500">No posts found.</p>;

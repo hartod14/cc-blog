@@ -11,11 +11,13 @@ import RichText from "@/components/Global/RichText";
 import Link from "next/link";
 import { formatDistanceToNow } from 'date-fns';
 import Image from "next/image";
+import SkeletonDetail from "@/components/SekeletonLoaderDetail/loader";
 
 export default function PostDetail() {
     const params = useParams<{ slug: string }>();
     const [post, setPost] = useState<any>();
     const [relatedPosts, setRelatedPosts] = useState<any[]>([]);
+    const [isLoading, setIsLoading] = useState(true); // Add loading state
 
     const fetchPost = async () => {
         try {
@@ -28,6 +30,8 @@ export default function PostDetail() {
             setPost(data.items[0].fields);
         } catch (error) {
             console.error(error);
+        } finally {
+            setIsLoading(false); // Stop loading after fetch
         }
     };
 
@@ -52,7 +56,14 @@ export default function PostDetail() {
 
     return (
         <div className="container mx-auto px-4 md:px-22 lg:px-48 mt-16 sm:mt-24 md:mt-28 lg:mt-32">
-            {post && (
+            {isLoading ? (
+                <div>
+                    <SkeletonDetail className="h-80 w-full rounded-md" />
+                    <SkeletonDetail className="h-8 mt-4 w-2/3" />
+                    <SkeletonDetail className="h-4 mt-4 w-full" />
+                    <SkeletonDetail className="h-4 mt-2 w-full" />
+                </div>
+            ) : post && (
                 <div className="">
                     <div className="mb-6">
                         <Image

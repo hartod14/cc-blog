@@ -20,13 +20,16 @@ const getBlogPostsContentful = async (): Promise<Entry<TypeBlogPostSkeleton>[]> 
 export default function PostPage() {
     const [posts, setPosts] = useState<Entry<TypeBlogPostSkeleton>[]>([]); // Define state with the correct type
     const [search, setSearch] = useState("");
+    const [loading, setLoading] = useState(true);
     const [activeCategory, setActiveCategory] = useState("All");
     const categories = ["All", "E-Sport", "Console", "RPG", "PC"];
 
     useEffect(() => {
         const fetchPosts = async () => {
+            setLoading(true);
             const data = await getBlogPostsContentful();
             setPosts(data);
+            setLoading(false);
         };
         fetchPosts();
     }, []);
@@ -90,7 +93,7 @@ export default function PostPage() {
                         />
                     </div>
 
-                    <PostList posts={filteredPosts} />
+                    <PostList posts={filteredPosts} loading={loading} />
                 </main>
             </div>
         </div>
